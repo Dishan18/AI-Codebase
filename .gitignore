@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# Repo clones
+repos/
+
+# Env
+.env
+
+# OS
+.DS_Store
