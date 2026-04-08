@@ -54,8 +54,8 @@ It converts raw code into structured, searchable knowledge and allows users to i
 
 backend/
 ├── routes/          # API endpoints
-├── services/        # Core logic (repo ingestion, parsing)
-├── utils/           # Helper functions (filtering, chunking)
+├── services/        # Core logic (repo ingestion, processing)
+├── utils/           # Helper functions (filtering, chunking, reading)
 ├── agents/          # Multi-agent system (future)
 ├── vectorstore/     # FAISS / embeddings (future)
 ├── repos/           # Cloned repositories (ignored)
@@ -76,29 +76,35 @@ frontend/            # UI (to be built)
 * GitHub repo cloning (optimized with shallow clone)
 * File filtering system (extensions, size, excluded dirs)
 * Clean project architecture (routes/services/utils separation)
-* End-to-end working pipeline:
+* End-to-end pipeline:
 
   * Input: GitHub URL
   * Output: filtered file list
 
 ---
 
+### Completed (Day 2)
+
+* File reading system (safe text extraction)
+* Chunking implementation (fixed-size with overlap)
+* Metadata attachment (file path for traceability)
+* Processing pipeline:
+
+  * files → text → chunks → structured data
+* API updated to return chunk-level data
+* Fixed Windows file permission issue (`PermissionError`) during repo deletion
+* Improved filtering to include `.md` and extensionless files (README support)
+
+---
+
 ### In Progress
 
-* Preparing for file content extraction
-* Designing chunking strategy
+* Preparing for embedding pipeline
+* Evaluating chunking strategies (function-level vs text-level)
 
 ---
 
 ### Remaining Objectives
-
-#### Day 2 — Data Preparation
-
-* Read file contents
-* Implement chunking (function/file level)
-* Attach metadata (file path, function name)
-
----
 
 #### Day 3 — Embeddings + Vector Store
 
@@ -143,10 +149,10 @@ frontend/            # UI (to be built)
 
 ## Current Status
 
-Day 1 complete — ingestion pipeline working and optimized.
+Day 2 complete — data processing pipeline working and stable.
 
 ---
 
 ## Next Step
 
-Implement file reading and chunking to prepare data for embeddings.
+Implement embeddings and vector search (FAISS) to enable semantic retrieval.
