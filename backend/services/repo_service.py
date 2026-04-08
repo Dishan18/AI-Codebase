@@ -1,8 +1,13 @@
 import os
 import shutil
+import stat
 from git import Repo
 
 BASE_DIR = "repos"
+
+def remove_readonly(func, path, _):
+    os.chmod(path, stat.S_IWRITE)
+    func(path)
 
 def clone_repo(repo_url: str):
     print(f"Cloning repo: {repo_url}")
@@ -14,10 +19,15 @@ def clone_repo(repo_url: str):
     clone_path = os.path.join(BASE_DIR, repo_name)
 
     if os.path.exists(clone_path):
-        shutil.rmtree(clone_path)
+        shutil.rmtree(clone_path, onerror=remove_readonly)
 
     try:
-        Repo.clone_from(repo_url, clone_path, depth=1, single_branch=True)
+        Repo.clone_from(
+            repo_url,
+            clone_path,
+            depth=1,
+            single_branch=True
+        )
         print("Clone completed")
     except Exception as e:
         print("Error:", e)

@@ -2,7 +2,7 @@ import os
 
 ALLOWED_EXTENSIONS = {
     ".py", ".js", ".ts", ".jsx", ".tsx",
-    ".java", ".cpp", ".c", ".go"
+    ".java", ".cpp", ".c", ".go", ".md", ".txt"
 }
 
 EXCLUDED_DIRS = {
@@ -21,7 +21,7 @@ def get_valid_files(repo_path):
         for file in files:
             ext = os.path.splitext(file)[1]
 
-            if ext in ALLOWED_EXTENSIONS:
+            if ext in ALLOWED_EXTENSIONS or ext =="":
                 full_path = os.path.join(root, file)
 
                 if os.path.getsize(full_path) <= MAX_FILE_SIZE:

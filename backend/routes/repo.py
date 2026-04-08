@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 from services.repo_service import clone_repo
 from utils.file_filter import get_valid_files
-
+from services.processing_service import process_repo
 router = APIRouter()
 
 class RepoRequest(BaseModel):
@@ -15,8 +15,11 @@ def ingest_repo(req: RepoRequest):
 
     files = get_valid_files(repo_path)
 
+    chunks = process_repo(repo_path, files)
+
     return {
         "repo_name": repo_name,
         "total_files": len(files),
-        "files": files[:50]
+        "total_chunks": len(chunks),
+        "sample_chunks": chunks[:5]
     }
