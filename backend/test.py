@@ -6,14 +6,10 @@ chunks = [
     {"content": "render homepage UI", "file_path": "ui.js"},
     {"content": "authenticate user credentials", "file_path": "auth.py"}
 ]
-
-# embeddings
 embeddings = generate_embeddings(chunks)
 
-# create index
 index = create_faiss_index(embeddings)
 
-# query
 query = "user authentication"
 query_emb = embed_query(query)
 

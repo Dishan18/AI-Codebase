@@ -3,7 +3,6 @@ import numpy as np
 
 
 def create_faiss_index(embeddings):
-    # ensure numpy array (important)
     embeddings = np.array(embeddings).astype("float32")
 
     dim = embeddings.shape[1]
