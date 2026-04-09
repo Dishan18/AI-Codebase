@@ -53,15 +53,20 @@ It converts raw code into structured, searchable knowledge and allows users to i
 ## Project Structure
 
 backend/
-├── routes/          # API endpoints
-├── services/        # Core logic (repo ingestion, processing)
-├── utils/           # Helper functions (filtering, chunking, reading)
-├── agents/          # Multi-agent system (future)
-├── vectorstore/     # FAISS / embeddings (future)
-├── repos/           # Cloned repositories (ignored)
-├── app.py           # FastAPI entry point
+├── routes/
+├── services/
+│   ├── repo_service.py
+│   ├── processing_service.py
+│   ├── embedding_service.py
+│   ├── vector_store.py
+│   ├── store.py
+├── utils/
+├── agents/
+├── vectorstore/
+├── repos/
+├── app.py
 
-frontend/            # UI (to be built)
+frontend/
 
 ---
 
@@ -74,59 +79,57 @@ frontend/            # UI (to be built)
 * Git setup with proper `.gitignore`
 * Repo ingestion API (`/ingest-repo`)
 * GitHub repo cloning (optimized with shallow clone)
-* File filtering system (extensions, size, excluded dirs)
-* Clean project architecture (routes/services/utils separation)
-* End-to-end pipeline:
-
-  * Input: GitHub URL
-  * Output: filtered file list
+* File filtering system
+* Clean architecture (routes/services/utils)
+* End-to-end ingestion pipeline
 
 ---
 
 ### Completed (Day 2)
 
-* File reading system (safe text extraction)
-* Chunking implementation (fixed-size with overlap)
-* Metadata attachment (file path for traceability)
-* Processing pipeline:
+* File reading system
+* Chunking implementation (fixed-size + overlap)
+* Metadata attachment (file path)
+* Processing pipeline: files → chunks
+* API updated to return chunk data
+* Fixed Windows permission issue during repo deletion
+* Improved filtering (README support)
 
-  * files → text → chunks → structured data
-* API updated to return chunk-level data
-* Fixed Windows file permission issue (`PermissionError`) during repo deletion
-* Improved filtering to include `.md` and extensionless files (README support)
+---
+
+### Completed (Day 3)
+
+* Implemented embedding generation using sentence-transformers
+* Built FAISS vector index for similarity search
+* Enabled semantic search over code chunks
+* Integrated embeddings and vector store into API
+* Added in-memory storage for index + chunks
 
 ---
 
 ### In Progress
 
-* Preparing for embedding pipeline
-* Evaluating chunking strategies (function-level vs text-level)
+* Query system design
+* LLM integration planning
 
 ---
 
 ### Remaining Objectives
 
-#### Day 3 — Embeddings + Vector Store
+#### Day 4 — Query + RAG
 
-* Generate embeddings (Sentence Transformers)
-* Store in FAISS
-* Implement similarity search
-
----
-
-#### Day 4 — RAG Pipeline
-
-* Query → retrieve relevant chunks
-* LLM response generation
-* Context-grounded answers
+* Build `/query-repo` endpoint
+* Retrieve relevant chunks using FAISS
+* Pass context to LLM
+* Generate grounded answers
 
 ---
 
 #### Day 5 — Multi-Agent System
 
-* Router agent (query classification)
+* Router agent
 * Explainer agent
-* Debug / analysis agent
+* Debug agent
 
 ---
 
@@ -134,25 +137,25 @@ frontend/            # UI (to be built)
 
 * Repo input UI
 * Chat interface
-* File references display
+* Result visualization
 
 ---
 
 #### Day 7+ — Advanced Features
 
-* AST-based parsing (function-level understanding)
-* Dependency graph generation
-* Code search improvements
-* Repo comparison
+* AST-based parsing
+* Dependency graphs
+* Improved chunking (function-level)
+* Multi-repo support
 
 ---
 
 ## Current Status
 
-Day 2 complete — data processing pipeline working and stable.
+Day 3 complete — semantic retrieval system implemented.
 
 ---
 
 ## Next Step
 
-Implement embeddings and vector search (FAISS) to enable semantic retrieval.
+Build query endpoint and integrate LLM for answer generation.
