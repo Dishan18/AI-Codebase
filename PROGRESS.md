@@ -18,9 +18,9 @@ Build an AI system that can:
 
 ## Summary
 
-This project is an AI-powered developer tool that ingests a GitHub repository, processes its codebase, and enables intelligent querying using Retrieval-Augmented Generation (RAG) and multi-agent systems.
+AI-powered developer tool that ingests GitHub repositories and enables intelligent querying using Retrieval-Augmented Generation (RAG) and a multi-agent architecture.
 
-It converts raw code into structured, searchable knowledge and allows users to interact with repositories through natural language.
+Transforms raw code into structured semantic knowledge and allows natural language interaction with codebases.
 
 ---
 
@@ -33,18 +33,17 @@ It converts raw code into structured, searchable knowledge and allows users to i
 
 ### AI / RAG
 
-* Ollama (local LLM for development)
-* Gemini API (for deployment)
+* Ollama (local LLM)
 * Sentence Transformers (embeddings)
 * FAISS (vector database)
 
-### Agent Framework
+### Architecture
 
-* LangChain (light orchestration)
+* Multi-Agent System (custom)
 
 ### Dev Tools
 
-* GitPython (repo cloning)
+* GitPython
 * VS Code
 * Git/GitHub
 
@@ -61,8 +60,13 @@ backend/
 │   ├── vector_store.py
 │   ├── store.py
 │   ├── llm_service.py
-├── utils/
 ├── agents/
+│   ├── router_agent.py
+│   ├── explainer_agent.py
+│   ├── debug_agent.py
+│   ├── summary_agent.py
+│   ├── search_agent.py
+├── utils/
 ├── repos/
 ├── app.py
 
@@ -74,88 +78,85 @@ frontend/
 
 ### Completed (Day 1)
 
-* Backend setup with FastAPI
-* Virtual environment setup
-* Git + `.gitignore` configuration
-* Repo ingestion API
-* Optimized GitHub cloning (shallow clone)
-* File filtering system
-* Clean architecture setup
+* Repo ingestion pipeline
+* GitHub cloning (optimized)
+* File filtering
+* Backend architecture
 
 ---
 
 ### Completed (Day 2)
 
-* File reading system
-* Chunking implementation (fixed-size + overlap)
+* File reading
+* Chunking (with overlap)
 * Metadata attachment
-* Processing pipeline (files → chunks)
-* Fixed Windows permission issues
-* Improved filtering (README support)
+* Processing pipeline
 
 ---
 
 ### Completed (Day 3)
 
-* Embedding generation using sentence-transformers
-* FAISS vector index implementation
+* Embeddings generation
+* FAISS vector index
 * Semantic similarity search
-* Integration into backend pipeline
-* In-memory storage of embeddings + chunks
+* Backend integration
 
 ---
 
 ### Completed (Day 4)
 
-* Query API (`/query-repo`)
-* Semantic retrieval using FAISS
-* Context construction from retrieved chunks
-* LLM integration using Ollama
-* Prompt engineering improvements
-* Response quality optimization (top-k filtering, chunk trimming)
+* Query API
+* Semantic retrieval
+* LLM integration (Ollama)
+* Prompt engineering
+* Response optimization
+
+---
+
+### Completed (Day 5)
+
+* Multi-agent architecture
+* Hybrid router (rule + LLM classification)
+* Explainer agent (code understanding)
+* Debug agent (issue analysis)
+* Summary agent (high-level overview)
+* Code search agent (snippet retrieval)
+* Query routing and specialization
 
 ---
 
 ### In Progress
 
-* Designing multi-agent architecture
-* Planning query routing logic
+* UI/UX design for frontend
 
 ---
 
 ### Remaining Objectives
 
-#### Day 5 — Multi-Agent System
-
-* Router agent (classify query type)
-* Explainer agent (code understanding)
-* Debug agent (error analysis)
-
----
-
 #### Day 6 — Frontend
 
-* Repo input UI
 * Chat interface
-* Display sources cleanly
+* Repo input field
+* Display answers + sources
+* Improve UX
 
 ---
 
 #### Day 7+ — Advanced Improvements
 
-* AST-based chunking (function-level understanding)
 * Persistent vector storage
 * Multi-repo support
-* Improved prompt strategies
+* AST-based chunking
+* Advanced agent reasoning
 
 ---
 
 ## Current Status
 
-Day 4 complete — full RAG pipeline implemented with semantic retrieval and LLM-based answer generation.
+Day 5 complete — multi-agent RAG system with specialized reasoning implemented.
 
 ---
 
 ## Next Step
 
-Implement multi-agent system to improve reasoning and query handling.
+Build frontend interface for user interaction.
