@@ -1,6 +1,5 @@
 from sentence_transformers import SentenceTransformer
 
-# load model once (important for performance)
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
 

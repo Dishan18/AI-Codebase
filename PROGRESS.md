@@ -60,9 +60,9 @@ backend/
 │   ├── embedding_service.py
 │   ├── vector_store.py
 │   ├── store.py
+│   ├── llm_service.py
 ├── utils/
 ├── agents/
-├── vectorstore/
 ├── repos/
 ├── app.py
 
@@ -75,13 +75,12 @@ frontend/
 ### Completed (Day 1)
 
 * Backend setup with FastAPI
-* Virtual environment + dependency management
-* Git setup with proper `.gitignore`
-* Repo ingestion API (`/ingest-repo`)
-* GitHub repo cloning (optimized with shallow clone)
+* Virtual environment setup
+* Git + `.gitignore` configuration
+* Repo ingestion API
+* Optimized GitHub cloning (shallow clone)
 * File filtering system
-* Clean architecture (routes/services/utils)
-* End-to-end ingestion pipeline
+* Clean architecture setup
 
 ---
 
@@ -89,47 +88,48 @@ frontend/
 
 * File reading system
 * Chunking implementation (fixed-size + overlap)
-* Metadata attachment (file path)
-* Processing pipeline: files → chunks
-* API updated to return chunk data
-* Fixed Windows permission issue during repo deletion
+* Metadata attachment
+* Processing pipeline (files → chunks)
+* Fixed Windows permission issues
 * Improved filtering (README support)
 
 ---
 
 ### Completed (Day 3)
 
-* Implemented embedding generation using sentence-transformers
-* Built FAISS vector index for similarity search
-* Enabled semantic search over code chunks
-* Integrated embeddings and vector store into API
-* Added in-memory storage for index + chunks
+* Embedding generation using sentence-transformers
+* FAISS vector index implementation
+* Semantic similarity search
+* Integration into backend pipeline
+* In-memory storage of embeddings + chunks
+
+---
+
+### Completed (Day 4)
+
+* Query API (`/query-repo`)
+* Semantic retrieval using FAISS
+* Context construction from retrieved chunks
+* LLM integration using Ollama
+* Prompt engineering improvements
+* Response quality optimization (top-k filtering, chunk trimming)
 
 ---
 
 ### In Progress
 
-* Query system design
-* LLM integration planning
+* Designing multi-agent architecture
+* Planning query routing logic
 
 ---
 
 ### Remaining Objectives
 
-#### Day 4 — Query + RAG
-
-* Build `/query-repo` endpoint
-* Retrieve relevant chunks using FAISS
-* Pass context to LLM
-* Generate grounded answers
-
----
-
 #### Day 5 — Multi-Agent System
 
-* Router agent
-* Explainer agent
-* Debug agent
+* Router agent (classify query type)
+* Explainer agent (code understanding)
+* Debug agent (error analysis)
 
 ---
 
@@ -137,25 +137,25 @@ frontend/
 
 * Repo input UI
 * Chat interface
-* Result visualization
+* Display sources cleanly
 
 ---
 
-#### Day 7+ — Advanced Features
+#### Day 7+ — Advanced Improvements
 
-* AST-based parsing
-* Dependency graphs
-* Improved chunking (function-level)
+* AST-based chunking (function-level understanding)
+* Persistent vector storage
 * Multi-repo support
+* Improved prompt strategies
 
 ---
 
 ## Current Status
 
-Day 3 complete — semantic retrieval system implemented.
+Day 4 complete — full RAG pipeline implemented with semantic retrieval and LLM-based answer generation.
 
 ---
 
 ## Next Step
 
-Build query endpoint and integrate LLM for answer generation.
+Implement multi-agent system to improve reasoning and query handling.
