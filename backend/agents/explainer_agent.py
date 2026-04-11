@@ -1,6 +1,6 @@
 from services.llm_service import generate_answer
 
-def explain(query, context_chunks):
+def explain(query, context_chunks, history):
     prompt = f"""
 You are a senior software engineer.
 
@@ -17,4 +17,4 @@ Question:
 {query}
 """
 
-    return generate_answer(prompt, context_chunks)
+    return generate_answer(prompt, context_chunks, history)

@@ -66,13 +66,15 @@ def query_repo(req: QueryRequest):
 
     results = results[:3]
 
+    history = store["history"][-5:]
+
     agent_type = classify_query(req.query)
 
     if agent_type == "debug":
-        answer = debug(req.query, results)
+        answer = debug(req.query, results, history)
 
     elif agent_type == "summary":
-        answer = summarize(req.query, results)
+        answer = summarize(req.query, results, history)
 
     elif agent_type == "search":
         search_results = code_search(req.query, results)
@@ -82,7 +84,14 @@ def query_repo(req: QueryRequest):
         }
 
     else:
-        answer = explain(req.query, results)
+        answer = explain(req.query, results, history)
+
+    store["history"].append({
+        "query": req.query,
+        "answer": answer
+    })
+
+    store["history"] = store["history"][-5:]
 
     return {
         "query": req.query,

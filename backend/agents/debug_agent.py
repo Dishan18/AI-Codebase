@@ -1,6 +1,6 @@
 from services.llm_service import generate_answer
 
-def debug(query, context_chunks):
+def debug(query, context_chunks, history):
     prompt = f"""
 You are a senior engineer debugging code.
 
@@ -15,4 +15,4 @@ Issue:
 {query}
 """
 
-    return generate_answer(prompt, context_chunks)
+    return generate_answer(prompt, context_chunks, history)

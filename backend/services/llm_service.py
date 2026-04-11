@@ -4,7 +4,10 @@ OLLAMA_URL = "http://localhost:11434/api/generate"
 MODEL = "mistral"
 
 
-def generate_answer(query, context_chunks):
+def generate_answer(query, context_chunks, history=[]):
+    history_text = "\n\n".join(
+    [f"Q: {h['query']}\nA: {h['answer']}" for h in history]
+    )
     context = "\n\n".join(
         [f"File: {c['file_path']}\nCode:\n{c['content']}" for c in context_chunks]
     )
@@ -20,6 +23,10 @@ Your task:
 Rules:
 - Use ONLY the provided context
 - If unsure, say "Not enough information"
+
+Use the conversation history if relevant.
+Conversation history:
+{history_text}
 
 Context:
 {context}

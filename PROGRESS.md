@@ -2,25 +2,23 @@
 
 ## Project Name
 
-AI Codebase Explainer (Multi-Agent + RAG)
+AI Codebase Explainer (Multi-Agent + RAG + Memory)
 
 ---
 
 ## Goal
 
-Build an AI system that can:
+Build an AI system that:
 
-* Understand any GitHub repository
-* Explain code structure, logic, and relationships
-* Answer natural language questions about the codebase
+* Understands any GitHub repository
+* Answers natural language questions about code
+* Explains, debugs, summarizes, and searches code intelligently
 
 ---
 
 ## Summary
 
-AI-powered developer tool that ingests GitHub repositories and enables intelligent querying using Retrieval-Augmented Generation (RAG) and a multi-agent architecture.
-
-Transforms raw code into structured semantic knowledge and allows natural language interaction with codebases.
+An AI-powered developer assistant that ingests GitHub repositories, converts them into semantic embeddings, and enables intelligent querying using Retrieval-Augmented Generation (RAG), a multi-agent architecture, and short-term conversational memory.
 
 ---
 
@@ -35,13 +33,15 @@ Transforms raw code into structured semantic knowledge and allows natural langua
 
 * Ollama (local LLM)
 * Sentence Transformers (embeddings)
-* FAISS (vector database)
+* FAISS (vector search)
 
 ### Architecture
 
-* Multi-Agent System (custom)
+* Multi-Agent System
+* Hybrid Router (rule + LLM fallback)
+* Short-term Memory (last 5 interactions)
 
-### Dev Tools
+### Tools
 
 * GitPython
 * VS Code
@@ -76,87 +76,108 @@ frontend/
 
 ## Progress
 
-### Completed (Day 1)
+### Day 1 — Ingestion Pipeline
 
-* Repo ingestion pipeline
-* GitHub cloning (optimized)
+* Repo cloning (GitPython)
 * File filtering
-* Backend architecture
+* Backend setup (FastAPI)
+* Clean project structure
 
 ---
 
-### Completed (Day 2)
+### Day 2 — Processing Layer
 
-* File reading
-* Chunking (with overlap)
+* File reading system
+* Chunking with overlap
 * Metadata attachment
-* Processing pipeline
+* Repo → chunks pipeline
 
 ---
 
-### Completed (Day 3)
+### Day 3 — Semantic Layer
 
-* Embeddings generation
-* FAISS vector index
+* Embedding generation
+* FAISS index
 * Semantic similarity search
-* Backend integration
+* Integration into backend
 
 ---
 
-### Completed (Day 4)
+### Day 4 — RAG System
 
 * Query API
-* Semantic retrieval
+* Retrieval + context building
 * LLM integration (Ollama)
 * Prompt engineering
-* Response optimization
+* Output quality optimization
 
 ---
 
-### Completed (Day 5)
+### Day 5 — Multi-Agent + Memory
 
-* Multi-agent architecture
-* Hybrid router (rule + LLM classification)
+#### Multi-Agent System
+
+* Router agent (intent classification)
 * Explainer agent (code understanding)
 * Debug agent (issue analysis)
 * Summary agent (high-level overview)
-* Code search agent (snippet retrieval)
-* Query routing and specialization
+* Search agent (code snippet retrieval)
 
 ---
 
-### In Progress
+#### Hybrid Routing
 
-* UI/UX design for frontend
-
----
-
-### Remaining Objectives
-
-#### Day 6 — Frontend
-
-* Chat interface
-* Repo input field
-* Display answers + sources
-* Improve UX
+* Rule-based classification (fast)
+* LLM fallback for complex queries
+* Fixed routing priority bug (intent > length)
 
 ---
 
-#### Day 7+ — Advanced Improvements
+#### Memory System
 
-* Persistent vector storage
-* Multi-repo support
-* AST-based chunking
-* Advanced agent reasoning
+* Short-term memory (last 5 Q/A pairs)
+* Context-aware responses
+* Integrated into LLM prompts
+
+---
+
+#### Quality Improvements
+
+* Chunk trimming
+* Top-k filtering
+* Improved search matching (word-level)
+
+---
+
+## Current Capabilities
+
+* Explain code logic
+* Debug issues
+* Summarize repositories
+* Search code snippets
+* Maintain conversational context
 
 ---
 
 ## Current Status
 
-Day 5 complete — multi-agent RAG system with specialized reasoning implemented.
+Day 5 complete — multi-agent RAG system with memory and improved routing.
 
 ---
 
 ## Next Step
 
-Build frontend interface for user interaction.
+Day 6 — Frontend
+
+* Chat interface
+* Repo input UI
+* Display answers + sources
+
+---
+
+## Future Improvements
+
+* Persistent vector storage
+* Multi-repo support
+* AST-based chunking
+* Advanced agent collaboration

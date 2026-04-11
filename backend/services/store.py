@@ -1,4 +1,5 @@
 store = {
     "index": None,
-    "chunks": None
+    "chunks": None,
+    "history": []
 }

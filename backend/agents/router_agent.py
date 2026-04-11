@@ -2,15 +2,18 @@ from services.llm_service import generate_answer
 
 KEYWORDS_DEBUG = {"error", "bug", "fix", "exception", "traceback", "fail"}
 KEYWORDS_EXPLAIN = {"how", "what", "explain", "why", "working"}
+KEYWORDS_SUMMARY = {"summary", "overview"}
 
 def rule_classify(query: str):
     q = query.lower()
-    if len(q.split()) <= 2:
-        return "search"   
     if any(k in q for k in KEYWORDS_DEBUG):
         return "debug"
     if any(k in q for k in KEYWORDS_EXPLAIN):
         return "explain"
+    if any(k in q for k in KEYWORDS_SUMMARY):
+        return "summary"
+    if len(q.split()) <= 2:
+        return "search"
 
     return None
 
