@@ -15,4 +15,7 @@ Issue:
 {query}
 """
 
-    return generate_answer(prompt, context_chunks, history)
+    return {
+        "answer": generate_answer(prompt, context_chunks, history),
+        "results": context_chunks[:3]
+    }

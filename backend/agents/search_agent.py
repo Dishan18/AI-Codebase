@@ -7,7 +7,10 @@ def code_search(query, context_chunks):
         if q in content.lower():
             results.append({
                 "file_path": c["file_path"],
-                "snippet": content.strip()[:300]
+                "content": content.strip()[:800]
             })
 
-    return results[:5]
+    return {
+        "answer": None,
+        "results": results[:5]
+    }

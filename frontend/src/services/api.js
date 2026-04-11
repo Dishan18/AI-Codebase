@@ -10,7 +10,7 @@ export const ingestRepo = async (repo_url) => {
   return response.json();
 };
 
-export const queryRepo = async (query, top_k = 5) => {
+export const queryRepo = async (query, top_k = 15) => {
   const response = await fetch(`${BASE_URL}/query-repo`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

@@ -2,7 +2,10 @@ import os
 
 ALLOWED_EXTENSIONS = {
     ".py", ".js", ".ts", ".jsx", ".tsx",
-    ".java", ".cpp", ".c", ".go", ".md", ".txt"
+    ".java", ".cpp", ".c", ".go",
+    ".html", ".css", ".json",
+    ".md", ".txt",
+    ".ipynb"
 }
 
 EXCLUDED_DIRS = {

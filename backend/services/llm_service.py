@@ -6,8 +6,9 @@ MODEL = "mistral"
 
 def generate_answer(query, context_chunks, history=[]):
     history_text = "\n\n".join(
-    [f"Q: {h['query']}\nA: {h['answer']}" for h in history]
+        [f"Q: {h['query']}\nA: {h['answer']}" for h in history]
     )
+
     context = "\n\n".join(
         [f"File: {c['file_path']}\nCode:\n{c['content']}" for c in context_chunks]
     )
@@ -24,7 +25,6 @@ Rules:
 - Use ONLY the provided context
 - If unsure, say "Not enough information"
 
-Use the conversation history if relevant.
 Conversation history:
 {history_text}
 
@@ -37,13 +37,23 @@ Question:
 Answer:
 """
 
-    response = requests.post(
-        OLLAMA_URL,
-        json={
-            "model": MODEL,
-            "prompt": prompt,
-            "stream": False
-        }
-    )
+    try:
+        response = requests.post(
+            OLLAMA_URL,
+            json={
+                "model": MODEL,
+                "prompt": prompt,
+                "stream": False
+            },
+            timeout=30
+        )
 
-    return response.json()["response"]
+        response.raise_for_status()
+        data = response.json()
+
+        return data.get("response", "No response from model")
+
+    except requests.exceptions.RequestException:
+        return "LLM request failed (Ollama not running or network issue)"
+    except ValueError:
+        return "Invalid response from LLM"

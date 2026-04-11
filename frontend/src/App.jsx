@@ -41,21 +41,39 @@ export default function App() {
     setLoading(true);
     try {
       const res = await queryRepo(q);
+      let displayContent = "";
+      if (res.answer && typeof res.answer === "string" && res.answer.trim() !== "") {
+        displayContent = res.answer;
+      }
+      else if (res.results && res.results.length > 0) {
+        displayContent = res.results
+          .map((r) => `// File: ${r.file_path}\n${r.content || r.snippet}`)
+          .join("\n\n---\n\n");
+      }
+      else {
+        displayContent =
+          "SYSTEM_ERROR: No relevant context found in vector database.";
+      }
       setMessages((m) => [
         ...m,
         {
           role: "ai",
-          content: res.answer || "Query processed.",
-          sources: res.sources || null,
-          results: res.results || null,
+          content: displayContent,
+          sources: res.sources || [],
+          results: res.results || [],
         },
       ]);
     } catch (err) {
       setMessages((m) => [
         ...m,
-        { role: "ai", content: "CRITICAL_FAILURE: Connection lost." },
+        {
+          role: "ai",
+          content:
+            "CRITICAL_FAILURE: Backend unreachable or internal server error.",
+        },
       ]);
     }
+
     setLoading(false);
   };
 

@@ -8,11 +8,7 @@ from services.embedding_service import embed_query, generate_embeddings
 from services.vector_store import search_index, create_faiss_index
 from services.store import store
 
-from agents.router_agent import classify_query
-from agents.explainer_agent import explain
-from agents.debug_agent import debug
-from agents.summary_agent import summarize
-from agents.search_agent import code_search
+from agents.router_agent import route_query
 
 router = APIRouter()
 
@@ -52,50 +48,28 @@ def query_repo(req: QueryRequest):
         return {"error": "No repository indexed yet"}
 
     query_embedding = embed_query(req.query)
-    indices = search_index(store["index"], query_embedding, req.top_k)
+    indices = search_index(store["index"], query_embedding, max(req.top_k, 15))
 
+    seen = set()
     results = []
     for i in indices[0]:
-        if i == -1:
-            continue
-
+        if i == -1: continue
         chunk = store["chunks"][i]
-        results.append({
-            "content": chunk["content"][:500],
-            "file_path": chunk["file_path"]
-        })
-
-    results = results[:3]
+        if chunk["file_path"] in seen: continue
+        seen.add(chunk["file_path"])
+        results.append({"content": chunk["content"][:500], "file_path": chunk["file_path"]})
+        if len(results) == 3: break
 
     history = store["history"][-3:]
-
-    agent_type = classify_query(req.query)
-
-    if agent_type == "debug":
-        answer = debug(req.query, results, history)
-
-    elif agent_type == "summary":
-        answer = summarize(req.query, results, history)
-
-    elif agent_type == "search":
-        search_results = code_search(req.query, results)
-        return {
-            "query": req.query,
-            "results": search_results
-        }
-
-    else:
-        answer = explain(req.query, results, history)
-
-    store["history"].append({
-        "query": req.query,
-        "answer": answer
-    })
-
-    store["history"] = store["history"][-5:]
+    agent_response = route_query(req.query, results, history)
+    answer_text = agent_response.get("answer")
+    
+    store["history"].append({"query": req.query, "answer": answer_text})
+    store["history"] = store["history"][-3:]
 
     return {
         "query": req.query,
-        "answer": answer,
+        "answer": answer_text,
+        "results": agent_response.get("results", []),
         "sources": results
     }
