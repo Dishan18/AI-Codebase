@@ -1,14 +1,59 @@
+# =========================
 # Python
+# =========================
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
 venv/
 .venv/
 
-# Repo clones
-repos/
+# =========================
+# Node.js / Frontend
+# =========================
+node_modules/
+dist/
+build/
+coverage/
+*.log
 
-# Env
+# Vite
+.vite/
+
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# Environment variables
+# =========================
 .env
+*.env*
 
-# OS
+# =========================
+# Editor / IDE
+# =========================
+.vscode/
+!.vscode/extensions.json
+.idea/
+
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# =========================
+# Repo clones (IMPORTANT)
+# =========================
+backend/repos/
+
+# =========================
+# OS files
+# =========================
 .DS_Store
+Thumbs.db

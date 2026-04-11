@@ -30,6 +30,7 @@ def ingest_repo(req: RepoRequest):
 
     store["index"] = index
     store["chunks"] = chunks
+    store["history"] = []
 
     return {
         "repo_name": repo_name,
@@ -66,7 +67,7 @@ def query_repo(req: QueryRequest):
 
     results = results[:3]
 
-    history = store["history"][-5:]
+    history = store["history"][-3:]
 
     agent_type = classify_query(req.query)
 
