@@ -4,7 +4,7 @@ An AI-powered developer assistant that clones any public GitHub repository, buil
 
 ---
 
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 The system processes source code using a multi-agent framework paired with Retrieval-Augmented Generation (RAG) and conversational memory.
 
@@ -45,7 +45,7 @@ graph TD
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Backend:** FastAPI, Python, Ollama (Mistral 7B), FAISS, SentenceTransformers
 - **Frontend:** React (Vite), Tailwind CSS, Custom Monospace/Hacker UI
@@ -160,12 +160,3 @@ Open **`http://localhost:5173`** in your browser to view the retro terminal UI!
 
 ---
 
-## 🧠 Current Status & Roadmap
-
-The current build is at **Day 6 (operational & stable)**, providing terminal-style UI output rendering, agent classification, semantic search, and memory.
-
-### Next Steps / Future Work
-- [ ] **FAISS Index Persistence:** Save and load indexes from disk rather than rebuilding on restart.
-- [ ] **AST-Based Chunking:** Incorporate Abstract Syntax Tree chunk parsing for language-aware chunk boundaries.
-- [ ] **Streaming Responses:** Support server-sent events (SSE) for real-time token generation in the React terminal.
-- [ ] **Authentication & Private Repos:** Add GitHub personal access token authentication.
